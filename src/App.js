@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Nav from './Nav';
 
-class App extends Component {
-  render() {
-    return (
-      <section className="hero is-primary">
-        <div className="hero-body">
-          Testing Bulma
+const App = () => {
+  return (
+    <div>
+      <Nav />
+      <section className="section">
+        <div className="container">
+          <p>Placeholder text</p>
         </div>
       </section>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
