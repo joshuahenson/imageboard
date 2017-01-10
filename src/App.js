@@ -1,15 +1,12 @@
 import React from 'react';
 import Nav from './Nav';
+import Board from './Board';
 
 const App = () => {
   return (
     <div>
       <Nav />
-      <section className="section">
-        <div className="container">
-          <p>Placeholder text</p>
-        </div>
-      </section>
+      <Board />
     </div>
   );
 };

@@ -1,5 +1,15 @@
 // compileExpanded: ../index.css
 
+.masonry {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .card {
+    margin-bottom: 10px;
+  }
+}
+
 @import "bulma" // Import everything during dev
 // @import "utilities/_all",
 //   "layout/hero"
