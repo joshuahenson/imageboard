@@ -6,9 +6,9 @@ const dummyData = [];
 
 // TODO: Remove dummyData
 // eslint-disable-next-line
-for (let i = 0; i < 10; i++) {
-  dummyData.push(`http://placehold.it/${Math.floor(Math.random() * (500 - 200)) + 200}x${Math.floor(Math.random() * (500 - 200)) + 200}`);
-}
+// for (let i = 0; i < 10; i++) {
+//   dummyData.push(`http://placehold.it/${Math.floor(Math.random() * (500 - 200)) + 200}x${Math.floor(Math.random() * (500 - 200)) + 200}`);
+// }
 
 class Board extends Component {
   constructor(props) {
