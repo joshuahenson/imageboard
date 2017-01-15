@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 
 class Nav extends Component {
@@ -41,9 +42,9 @@ class Nav extends Component {
 
         <div className="container">
           <div className="nav-left">
-            <a className="nav-item">
+            <Link to="/" className="nav-item">
               Imageboard
-            </a>
+            </Link>
           </div>
 
           <span aria-hidden="true" className="nav-toggle" onClick={this.toggleMenu}>
@@ -53,9 +54,9 @@ class Nav extends Component {
           </span>
 
           <div className={`nav-right nav-menu ${this.state.mobileMenu && 'is-active'}`}>
-            <a className="nav-item">
-              Placeholder
-            </a>
+            <Link to="/about" className="nav-item">
+              About
+            </Link>
             <span className="nav-item">
               {this.state.user.userId ?
                 <button className="button" onClick={this.logout} >
