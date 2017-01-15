@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Nav from './Nav';
-import Board from './Board';
 
-const App = () => {
+const App = ({ children }) => {
   return (
     <div>
       <Nav />
-      <Board />
+      { children }
     </div>
   );
+};
+
+App.propTypes = {
+  children: PropTypes.object
 };
 
 export default App;
