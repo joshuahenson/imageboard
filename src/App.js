@@ -1,17 +1,18 @@
 import React, { PropTypes } from 'react';
 import Nav from './Nav';
 
-const App = ({ children }) => {
+const App = ({ children, location }) => {
   return (
     <div>
-      <Nav />
+      <Nav location={location} />
       { children }
     </div>
   );
 };
 
 App.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 
@@ -37,6 +37,7 @@ class Nav extends Component {
   }
   // TODO: PROD - fix url
   render() {
+    const { location } = this.props;
     return (
       <nav className="nav has-shadow">
 
@@ -54,7 +55,7 @@ class Nav extends Component {
           </span>
 
           <div className={`nav-right nav-menu ${this.state.mobileMenu && 'is-active'}`}>
-            <Link to="/about" className="nav-item">
+            <Link to="/about" className={`nav-item ${location.pathname === '/about' && 'is-active'}`}>
               About
             </Link>
             <span className="nav-item">
@@ -79,5 +80,9 @@ class Nav extends Component {
   );
   }
 }
+
+Nav.propTypes = {
+  location: PropTypes.objectOf(PropTypes.any).isRequired
+};
 
 export default Nav;
