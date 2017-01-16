@@ -7,7 +7,7 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = { images: [] };
-    this.clickHandler = this.clickHandler.bind(this);
+    this.likeHandler = this.likeHandler.bind(this);
   }
   componentDidMount() {
     axios.get('/api/images')
@@ -18,7 +18,7 @@ class Board extends Component {
         console.error(error);
       });
   }
-  clickHandler(index, userId, imageId) {
+  likeHandler(index, userId, imageId) {
     if (userId) {
       // optimistic update of state
       const newImagesState = this.state.images.slice(0);
@@ -43,7 +43,7 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {this.state.images.map((image, i) => <ImageCard key={i} image={image} userId={userId} index={i} clickHandler={this.clickHandler} />)}
+          {this.state.images.map((image, i) => <ImageCard key={i} image={image} userId={userId} index={i} likeHandler={this.likeHandler} />)}
         </Masonry>
       </div>
   );

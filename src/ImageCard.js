@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const ImageCard = ({ image, userId, index, clickHandler }) => {
+const ImageCard = ({ image, userId, index, likeHandler }) => {
   const userLiked = image.likes.indexOf(userId) > -1;
   return (
     <div className="card">
@@ -23,7 +23,7 @@ const ImageCard = ({ image, userId, index, clickHandler }) => {
           </div>
           <div className="media-content">
             <button
-              disabled={userLiked} onClick={() => clickHandler(index, userId, image._id)}
+              disabled={userLiked} onClick={() => likeHandler(index, userId, image._id)}
               className={`button like is-primary is-pulled-right ${!userLiked && 'is-outlined'}`}
             >
               <span className="icon is-small">
@@ -42,7 +42,7 @@ ImageCard.propTypes = {
   image: PropTypes.object.isRequired,
   userId: PropTypes.string,
   index: PropTypes.number,
-  clickHandler: PropTypes.func
+  likeHandler: PropTypes.func
 };
 
 export default ImageCard;
