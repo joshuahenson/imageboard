@@ -7,6 +7,7 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = { images: [] };
+    this.clickHandler = this.clickHandler.bind(this);
   }
   componentDidMount() {
     axios.get('/api/images')
@@ -16,6 +17,20 @@ class Board extends Component {
       .catch((error) => {
         console.error(error);
       });
+  }
+  clickHandler(index, userId, imageId) {
+    if (userId) {
+      // optimistic update of state
+      const newImagesState = this.state.images.slice(0);
+      newImagesState[index].likes.push(userId);
+      this.setState({ images: newImagesState });
+      // update server
+      axios.post('/api/image', { imageId })
+      .then(res => console.log(res))
+      .catch(err => console.error(err)); // TODO: Revert State / issue message
+    } else {
+      console.log('not logged in'); // TODO: ISSUE MESSAGE
+    }
   }
   render() {
     const { userId } = this.props;
@@ -28,7 +43,7 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {this.state.images.map((image, i) => <ImageCard key={i} image={image} userId={userId} />)}
+          {this.state.images.map((image, i) => <ImageCard key={i} image={image} userId={userId} index={i} clickHandler={this.clickHandler} />)}
         </Masonry>
       </div>
   );

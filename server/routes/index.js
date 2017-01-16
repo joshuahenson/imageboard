@@ -24,7 +24,9 @@ module.exports = (app) => {
 
   app.get('/api/images', imageController.getImages);
 
-  app.put('/api/image', checkAuth, imageController.addImage);
+  app.route('/api/image')
+    .put(checkAuth, imageController.addImage)
+    .post(checkAuth, imageController.likeImage);
 
   app.get('/auth/twitter', passportTwitter.authenticate('twitter'));
 

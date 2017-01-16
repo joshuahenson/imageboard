@@ -29,4 +29,13 @@ function getImages(req, res) {
   });
 }
 
-module.exports = { addImage, getImages };
+function likeImage(req, res) {
+  Image.update({ _id: req.body.imageId }, { $push: { likes: req.user.userId } }, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.status(200).end();
+  });
+}
+
+module.exports = { addImage, getImages, likeImage };
