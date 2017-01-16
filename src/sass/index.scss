@@ -11,6 +11,13 @@
   }
 }
 
+.button.like {
+  &[disabled],
+  &.is-disabled {
+    opacity: 1;
+  }
+}
+
 @import "bulma" // Import everything during dev
 // @import "utilities/_all",
 //   "layout/hero"

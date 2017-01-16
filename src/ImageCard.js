@@ -24,7 +24,7 @@ const ImageCard = ({ image, userId, index, clickHandler }) => {
           <div className="media-content">
             <button
               disabled={userLiked} onClick={() => clickHandler(index, userId, image._id)}
-              className={`button is-primary is-pulled-right ${!userLiked && 'is-outlined'}`}
+              className={`button like is-primary is-pulled-right ${!userLiked && 'is-outlined'}`}
             >
               <span className="icon is-small">
                 <i className="fa fa-star-o" />
