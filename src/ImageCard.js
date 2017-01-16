@@ -15,9 +15,11 @@ const ImageCard = ({ image, userId }) => {
         </div>
         <div className="media">
           <div className="media-left">
-            <figure>
-              <img src={image.user.profilePhoto} alt={image.user.userName} height="35" width="35" />
-            </figure>
+            <a href={`https://twitter.com/${image.user.userName}`} target="_blank" rel="noreferrer noopener">
+              <figure>
+                <img src={image.user.profilePhoto} alt={image.user.userName} height="35" width="35" />
+              </figure>
+            </a>
           </div>
           <div className="media-content">
             <button disabled={userLiked} className={`button is-primary is-pulled-right ${!userLiked && 'is-outlined'}`}>
