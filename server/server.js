@@ -18,6 +18,7 @@ routes(app);
 
 const uristring = process.env.MONGODB_URI || 'mongodb://localhost/imageboard';
 
+mongoose.Promise = global.Promise;
 mongoose.connect(uristring, (err) => {
   if (err) {
     console.log(`ERROR connecting to: ${uristring}. ${err}`);
