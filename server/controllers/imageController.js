@@ -10,7 +10,7 @@ function addImage(req, res) {
   // Let's sanitize inputs
   newImage.url = sanitizeHtml(newImage.url);
   newImage.description = sanitizeHtml(newImage.description);
-  newImage.userId = req.user._id;
+  newImage.user = req.user._id;
 
   newImage.save((err) => {
     if (err) {
@@ -21,7 +21,7 @@ function addImage(req, res) {
 }
 
 function getImages(req, res) {
-  Image.find().sort('-date').populate('userId').exec((err, images) => {
+  Image.find().sort('-date').populate('user').exec((err, images) => {
     if (err) {
       res.status(500).send(err);
     }

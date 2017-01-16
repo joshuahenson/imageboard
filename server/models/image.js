@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const Image = new Schema({
   url: String,
   description: String,
-  userId: { type: Schema.Types.ObjectId, ref: 'users' },
+  user: { type: Schema.Types.ObjectId, ref: 'users' },
   likes: [String],
   date: { type: Date, default: Date.now, required: true }
 });

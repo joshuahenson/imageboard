@@ -33,7 +33,7 @@ class App extends Component {
     const { children } = this.props;
     return (
       <div>
-        <Nav logout={this.logout} user={this.state.user.userId} />
+        <Nav logout={this.logout} userId={this.state.user.userId} />
         { children }
       </div>
     );

@@ -14,7 +14,7 @@ class Nav extends Component {
   }
   // TODO: PROD - fix url
   render() {
-    const { logout, user } = this.props;
+    const { logout, userId } = this.props;
     return (
       <nav className="nav has-shadow">
 
@@ -39,7 +39,7 @@ class Nav extends Component {
               Add Image
             </Link>
             <span className="nav-item">
-              {user ?
+              {userId ?
                 <button type="button" className="button" onClick={logout} >
                   <span>Logout</span>
                 </button>
@@ -63,7 +63,7 @@ class Nav extends Component {
 
 Nav.propTypes = {
   logout: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired
 };
 
 export default Nav;

@@ -15,7 +15,7 @@ const ImageCard = ({ image }) => {
         <div className="media">
           <div className="media-left">
             <figure>
-              <img src={image.userId.profilePhoto} alt={image.userId.userName} height="35" width="35" />
+              <img src={image.user.profilePhoto} alt={image.user.userName} height="35" width="35" />
             </figure>
           </div>
           <div className="media-content">
