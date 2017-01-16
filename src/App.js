@@ -30,11 +30,14 @@ class App extends Component {
       });
   }
   render() {
-    const { children } = this.props;
     return (
       <div>
         <Nav logout={this.logout} userId={this.state.user.userId} />
-        { children }
+        { React.Children.map(this.props.children, (child) => {
+          return React.cloneElement(child, {
+            userId: this.state.user.userId
+          });
+        }) }
       </div>
     );
   }

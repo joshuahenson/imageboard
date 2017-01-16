@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Masonry from 'react-masonry-component';
 import axios from 'axios';
 import ImageCard from './ImageCard';
@@ -18,6 +18,7 @@ class Board extends Component {
       });
   }
   render() {
+    const { userId } = this.props;
     return (
       <div className="container">
         <Masonry
@@ -27,11 +28,15 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {this.state.images.map((image, i) => <ImageCard key={i} image={image} />)}
+          {this.state.images.map((image, i) => <ImageCard key={i} image={image} userId={userId} />)}
         </Masonry>
       </div>
   );
   }
 }
+
+Board.propTypes = {
+  userId: PropTypes.string
+};
 
 export default Board;
