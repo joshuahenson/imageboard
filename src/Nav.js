@@ -1,43 +1,20 @@
 import React, { Component, PropTypes } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router';
-
 
 class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mobileMenu: false,
-      user: { userId: '' }
+      mobileMenu: false
     };
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.logout = this.logout.bind(this);
-  }
-  componentDidMount() {
-    axios.get('/api/user')
-      .then((res) => {
-        this.setState({ user: res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
   toggleMenu() {
     this.setState({ mobileMenu: !this.state.mobileMenu });
   }
-  // TODO: show pending status?
-  logout() {
-    axios.get('/api/logout')
-      .then(() => {
-        this.setState({ user: '' });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
   // TODO: PROD - fix url
   render() {
-    const { location } = this.props;
+    const { logout, user } = this.props;
     return (
       <nav className="nav has-shadow">
 
@@ -55,15 +32,15 @@ class Nav extends Component {
           </span>
 
           <div className={`nav-right nav-menu ${this.state.mobileMenu && 'is-active'}`}>
-            <Link to="/about" className={`nav-item ${location.pathname === '/about' && 'is-active'}`}>
+            <Link to="/about" activeClassName="is-active" className="nav-item">
               About
             </Link>
-            <Link to="/add_image" className={`nav-item ${location.pathname === '/add_image' && 'is-active'}`}>
+            <Link to="/add_image" activeClassName="is-active" className="nav-item">
               Add Image
             </Link>
             <span className="nav-item">
-              {this.state.user.userId ?
-                <button type="button" className="button" onClick={this.logout} >
+              {user ?
+                <button type="button" className="button" onClick={logout} >
                   <span>Logout</span>
                 </button>
               :
@@ -80,12 +57,13 @@ class Nav extends Component {
 
         </div>
       </nav>
-  );
+    );
   }
 }
 
 Nav.propTypes = {
-  location: PropTypes.object.isRequired
+  logout: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired
 };
 
 export default Nav;
