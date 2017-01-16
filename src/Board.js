@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import Masonry from 'react-masonry-component';
+import axios from 'axios';
 import ImageCard from './ImageCard';
-
-const dummyData = [];
-
-// TODO: Remove dummyData
-// eslint-disable-next-line
-// for (let i = 0; i < 10; i++) {
-//   dummyData.push(`http://placehold.it/${Math.floor(Math.random() * (500 - 200)) + 200}x${Math.floor(Math.random() * (500 - 200)) + 200}`);
-// }
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = { images: [] };
+  }
+  componentDidMount() {
+    axios.get('/api/images')
+      .then((res) => {
+        this.setState({ images: res.data.images });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   render() {
     return (
@@ -25,7 +27,7 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {dummyData.map((src, i) => <ImageCard key={i} src={src} />)}
+          {this.state.images.map((image, i) => <ImageCard key={i} image={image} />)}
         </Masonry>
       </div>
   );

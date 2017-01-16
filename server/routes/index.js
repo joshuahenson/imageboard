@@ -1,6 +1,14 @@
 const passportTwitter = require('../auth/twitter');
+const imageController = require('../controllers/imageController');
 
 module.exports = (app) => {
+  function checkAuth(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.status(401).end();
+  }
+
   app.get('/api/user', (req, res) => {
     if (req.user) {
       res.json(req.user);
@@ -13,6 +21,10 @@ module.exports = (app) => {
     req.logout();
     res.redirect('/');
   });
+
+  app.get('/api/images', imageController.getImages);
+
+  app.put('/api/image', checkAuth, imageController.addImage);
 
   app.get('/auth/twitter', passportTwitter.authenticate('twitter'));
 

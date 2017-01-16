@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const ImageCard = ({ src }) => {
+const ImageCard = ({ image }) => {
   return (
     <div className="card">
       <div className="card-image">
         <figure className="image">
-          <img src={src} alt="pending" />
+          <img src={image.url} alt={image.description} />
         </figure>
       </div>
       <div className="card-content">
         <div className="content">
-          Lorem ipsum dolor sit amet
+          {image.description}
         </div>
       </div>
     </div>
   );
+};
+
+ImageCard.propTypes = {
+  image: PropTypes.object.isRequired
 };
 
 export default ImageCard;

@@ -58,9 +58,12 @@ class Nav extends Component {
             <Link to="/about" className={`nav-item ${location.pathname === '/about' && 'is-active'}`}>
               About
             </Link>
+            <Link to="/add_image" className={`nav-item ${location.pathname === '/add_image' && 'is-active'}`}>
+              Add Image
+            </Link>
             <span className="nav-item">
               {this.state.user.userId ?
-                <button className="button" onClick={this.logout} >
+                <button type="button" className="button" onClick={this.logout} >
                   <span>Logout</span>
                 </button>
               :
@@ -82,7 +85,7 @@ class Nav extends Component {
 }
 
 Nav.propTypes = {
-  location: PropTypes.objectOf(PropTypes.any).isRequired
+  location: PropTypes.object.isRequired
 };
 
 export default Nav;
