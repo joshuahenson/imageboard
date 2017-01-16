@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 
-// TODO: only show if logged in
 // TODO: Standardize url inputs? (add http if missing?)
 // TODO: Notification of errors/success
 class AddImage extends Component {
@@ -42,6 +41,7 @@ class AddImage extends Component {
   }
   render() {
     const { imageUrl, imageDescription, submitting } = this.state;
+    const { userId } = this.props;
     return (
       <section className="section">
         <div className="container">
@@ -62,9 +62,9 @@ class AddImage extends Component {
             </p>
             <p className="control">
               <button
-                type="submit" className={`button is-primary ${submitting && 'is-loading'}`} disabled={submitting}
+                type="submit" className={`button is-primary ${submitting && 'is-loading'}`} disabled={submitting || !userId}
               >
-                Add Image
+                {userId ? 'Add Image' : 'Login Required'}
               </button>
             </p>
           </form>
@@ -73,5 +73,9 @@ class AddImage extends Component {
     );
   }
 }
+
+AddImage.propTypes = {
+  userId: PropTypes.string
+};
 
 export default AddImage;

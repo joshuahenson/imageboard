@@ -35,24 +35,27 @@ class Nav extends Component {
             <Link to="/about" activeClassName="is-active" className="nav-item">
               About
             </Link>
-            <Link to="/add_image" activeClassName="is-active" className="nav-item">
-              Add Image
-            </Link>
-            <span className="nav-item">
-              {userId ?
-                <button type="button" className="button" onClick={logout} >
-                  <span>Logout</span>
-                </button>
-              :
+            {userId ?
+              <span className="nav-item">
+                <Link to="/add_image" activeClassName="is-active">
+                  Add Image
+                </Link>
+                <span className="nav-item">
+                  <button type="button" className="button" onClick={logout} >
+                    <span>Logout</span>
+                  </button>
+                </span>
+              </span>
+            :
+              <span className="nav-item">
                 <a href="http://127.0.0.1:3001/auth/twitter" className="button is-info is-outlined" >
                   <span className="icon">
                     <i className="fa fa-twitter" />
                   </span>
                   <span>Login</span>
                 </a>
-              }
-            </span>
-
+              </span>
+            }
           </div>
 
         </div>
