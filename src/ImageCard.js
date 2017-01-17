@@ -11,7 +11,7 @@ class ImageCard extends Component {
     this.setState({ error: true });
   }
   render() {
-    const { image, userId, index, likeHandler, openModal } = this.props;
+    const { image, userId, likeHandler, openModal } = this.props;
     const { error } = this.state;
     const userLiked = image.likes.indexOf(userId) > -1;
     return (
@@ -38,7 +38,7 @@ class ImageCard extends Component {
             </div>
             <div className="media-content">
               <button
-                disabled={userLiked} onClick={() => likeHandler(index, userId, image._id)}
+                disabled={userLiked} onClick={() => likeHandler(userId, image._id)}
                 className={`button like is-primary is-pulled-right ${!userLiked && 'is-outlined'}`}
               >
                 <span className="icon is-small">
@@ -57,7 +57,6 @@ class ImageCard extends Component {
 ImageCard.propTypes = {
   image: PropTypes.object.isRequired,
   userId: PropTypes.string,
-  index: PropTypes.number,
   likeHandler: PropTypes.func,
   openModal: PropTypes.func
 };

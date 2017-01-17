@@ -29,15 +29,16 @@ class Board extends Component {
         console.error(error);
       });
   }
-  likeHandler(index, userId, imageId) {
+  likeHandler(userId, imageId) {
     if (userId) {
       // optimistic update of state
+      const index = this.state.images.map((image) => { return image._id; }).indexOf(imageId);
       const newImagesState = this.state.images.slice(0);
       newImagesState[index].likes.push(userId);
       this.setState({ images: newImagesState });
       // update server
       axios.post('/api/image', { imageId })
-      .then(res => console.log(res))
+      .then()
       .catch(err => console.error(err)); // TODO: Revert State / issue message
     } else {
       console.log('not logged in'); // TODO: ISSUE MESSAGE
@@ -75,9 +76,9 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {images.map((image, i) => (
+          {images.map(image => (
             <ImageCard
-              key={image._id} image={image} userId={userId} index={i}
+              key={image._id} image={image} userId={userId}
               likeHandler={this.likeHandler} openModal={this.openModal}
             />
           ))}
