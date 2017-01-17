@@ -1,29 +1,46 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 
 // TODO: fix sizing
 // TODO: delete button
-const ImageModal = ({ active, url, description, closeModal }) => {
-  return (
-    <div className={`modal ${active && 'is-active'}`}>
-      <div className="modal-background" onClick={closeModal} />
-      <div className="modal-card">
-        <header className="modal-card-head">
-          <p className="modal-card-title" />
-          <button className="delete" onClick={closeModal} />
-        </header>
-        <section className="modal-card-body">
-          <img src={url} alt={description} />
-          <p className="modal-card-body">
-            {description}
-          </p>
-        </section>
-        <footer className="modal-card-foot">
-          <button className="button is-danger">Show delete if user</button>
-        </footer>
+class ImageModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: false };
+    this.handleError = this.handleError.bind(this);
+    this.close = this.close.bind(this);
+  }
+  handleError() {
+    this.setState({ error: true });
+  }
+  close() {
+    this.props.closeModal();
+    this.setState({ error: false });
+  }
+  render() {
+    const { active, url, description } = this.props;
+    const { error } = this.state;
+    return (
+      <div className={`modal ${active && 'is-active'}`}>
+        <div className="modal-background" onClick={this.close} />
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title" />
+            <button className="delete" onClick={this.close} />
+          </header>
+          <section className="modal-card-body">
+            <img src={error ? '/camera.png' : url} alt={description} onError={this.handleError} />
+            <p className="modal-card-body">
+              {description}
+            </p>
+          </section>
+          <footer className="modal-card-foot">
+            <button className="button is-danger">Show delete if user</button>
+          </footer>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 ImageModal.propTypes = {
   active: PropTypes.bool,

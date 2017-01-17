@@ -7,11 +7,12 @@ import ImageModal from './ImageModal';
 class Board extends Component {
   constructor(props) {
     super(props);
+    // blank url string causes all modal images to error out.
     this.state = {
       images: [],
       modal: {
         active: false,
-        url: '',
+        url: './camera.png',
         description: ''
       }
     };
@@ -49,7 +50,7 @@ class Board extends Component {
     this.setState({
       modal: {
         active: false,
-        url: '',
+        url: './camera.png',
         description: ''
       }
     });
