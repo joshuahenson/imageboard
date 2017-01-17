@@ -13,6 +13,7 @@ ReactDOM.render(
       <IndexRoute component={Board} />
       <Route path="about" component={About} />
       <Route path="add_image" component={AddImage} />
+      <Route path="images/:userId" component={Board} />
     </Route>
   </Router>,
   document.getElementById('root')

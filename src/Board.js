@@ -55,8 +55,12 @@ class Board extends Component {
     });
   }
   render() {
-    const { userId } = this.props;
+    const { userId, params } = this.props;
     const { modal } = this.state;
+    let images = this.state.images;
+    if (params.userId) {
+      images = this.state.images.filter(image => image.user.userId === params.userId);
+    }
     return (
       <div className="container">
         <ImageModal
@@ -70,7 +74,7 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {this.state.images.map((image, i) => (
+          {images.map((image, i) => (
             <ImageCard
               key={i} image={image} userId={userId} index={i}
               likeHandler={this.likeHandler} openModal={this.openModal}
@@ -83,7 +87,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  params: PropTypes.object,
 };
 
 export default Board;

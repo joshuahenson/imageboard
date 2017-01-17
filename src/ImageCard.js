@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 const ImageCard = ({ image, userId, index, likeHandler, openModal }) => {
   const userLiked = image.likes.indexOf(userId) > -1;
@@ -15,11 +16,11 @@ const ImageCard = ({ image, userId, index, likeHandler, openModal }) => {
         </div>
         <div className="media">
           <div className="media-left">
-            <a href={`https://twitter.com/${image.user.userName}`} target="_blank" rel="noreferrer noopener">
+            <Link to={`/images/${image.user.userId}`}>
               <figure>
                 <img src={image.user.profilePhoto} alt={image.user.userName} height="35" width="35" />
               </figure>
-            </a>
+            </Link>
           </div>
           <div className="media-content">
             <button
