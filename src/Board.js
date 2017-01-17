@@ -76,7 +76,7 @@ class Board extends Component {
         >
           {images.map((image, i) => (
             <ImageCard
-              key={i} image={image} userId={userId} index={i}
+              key={image._id} image={image} userId={userId} index={i}
               likeHandler={this.likeHandler} openModal={this.openModal}
             />
           ))}
