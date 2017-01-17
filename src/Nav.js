@@ -18,6 +18,7 @@ class Nav extends Component {
     this.setState({ twitterLoading: true });
   }
   // TODO: PROD - fix url
+  // Duplicate checks to userId to prevent wrapping adjacent tags in jsx which screws up css
   render() {
     const { logout, userId } = this.props;
     const { mobileMenu, twitterLoading } = this.state;
@@ -26,7 +27,7 @@ class Nav extends Component {
 
         <div className="container">
           <div className="nav-left">
-            <Link to="/" className="nav-item">
+            <Link to="/" className="nav-item is-tab">
               Imageboard
             </Link>
           </div>
@@ -38,19 +39,19 @@ class Nav extends Component {
           </span>
 
           <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
-            <Link to="/about" activeClassName="is-active" className="nav-item">
+            <Link to="/about" activeClassName="is-active" className="nav-item is-tab">
               About
             </Link>
+            {userId &&
+              <Link to="/add_image" activeClassName="is-active" className="nav-item is-tab">
+                    Add Image
+              </Link>
+            }
             {userId ?
               <span className="nav-item">
-                <Link to="/add_image" activeClassName="is-active">
-                  Add Image
-                </Link>
-                <span className="nav-item">
-                  <button type="button" className="button" onClick={logout} >
-                    <span>Logout</span>
-                  </button>
-                </span>
+                <button type="button" className="button" onClick={logout} >
+                  <span>Logout</span>
+                </button>
               </span>
             :
               <span className="nav-item">

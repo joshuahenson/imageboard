@@ -18,6 +18,12 @@
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+$blue: #1da1f2;
+
 @import "bulma" // Import everything during dev
 // @import "utilities/_all",
 //   "layout/hero"

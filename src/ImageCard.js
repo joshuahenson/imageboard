@@ -17,7 +17,7 @@ class ImageCard extends Component {
     return (
       <div className="card">
         <div className="card-image">
-          <figure className="image">
+          <figure className="image pointer">
             <img
               src={error ? '/camera.png' : image.url} alt={image.description}
               onClick={() => openModal(image.url, image.description)} onError={this.handleError}
