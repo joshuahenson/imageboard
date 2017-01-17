@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
-const ImageCard = ({ image, userId, index, likeHandler }) => {
+const ImageCard = ({ image, userId, index, likeHandler, openModal }) => {
   const userLiked = image.likes.indexOf(userId) > -1;
   return (
     <div className="card">
       <div className="card-image">
         <figure className="image">
-          <img src={image.url} alt={image.description} />
+          <img src={image.url} alt={image.description} onClick={() => openModal(image.url, image.description)} />
         </figure>
       </div>
       <div className="card-content">
@@ -42,7 +42,8 @@ ImageCard.propTypes = {
   image: PropTypes.object.isRequired,
   userId: PropTypes.string,
   index: PropTypes.number,
-  likeHandler: PropTypes.func
+  likeHandler: PropTypes.func,
+  openModal: PropTypes.func
 };
 
 export default ImageCard;

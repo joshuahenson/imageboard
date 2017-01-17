@@ -2,12 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import Masonry from 'react-masonry-component';
 import axios from 'axios';
 import ImageCard from './ImageCard';
+import ImageModal from './ImageModal';
 
 class Board extends Component {
   constructor(props) {
     super(props);
-    this.state = { images: [] };
+    this.state = {
+      images: [],
+      modal: {
+        active: false,
+        url: '',
+        description: ''
+      }
+    };
     this.likeHandler = this.likeHandler.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
   componentDidMount() {
     axios.get('/api/images')
@@ -32,10 +42,27 @@ class Board extends Component {
       console.log('not logged in'); // TODO: ISSUE MESSAGE
     }
   }
+  openModal(url, description) {
+    this.setState({ modal: { active: true, url, description } });
+  }
+  closeModal() {
+    this.setState({
+      modal: {
+        active: false,
+        url: '',
+        description: ''
+      }
+    });
+  }
   render() {
     const { userId } = this.props;
+    const { modal } = this.state;
     return (
       <div className="container">
+        <ImageModal
+          active={modal.active} url={modal.url}
+          description={modal.description} closeModal={this.closeModal}
+        />
         <Masonry
           className="masonry"
           options={{
@@ -43,7 +70,12 @@ class Board extends Component {
             gutter: 10
           }}
         >
-          {this.state.images.map((image, i) => <ImageCard key={i} image={image} userId={userId} index={i} likeHandler={this.likeHandler} />)}
+          {this.state.images.map((image, i) => (
+            <ImageCard
+              key={i} image={image} userId={userId} index={i}
+              likeHandler={this.likeHandler} openModal={this.openModal}
+            />
+          ))}
         </Masonry>
       </div>
   );
