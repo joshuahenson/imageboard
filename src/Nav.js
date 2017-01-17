@@ -5,16 +5,22 @@ class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mobileMenu: false
+      mobileMenu: false,
+      twitterLoading: false
     };
     this.toggleMenu = this.toggleMenu.bind(this);
+    this.twitterLoading = this.twitterLoading.bind(this);
   }
   toggleMenu() {
     this.setState({ mobileMenu: !this.state.mobileMenu });
   }
+  twitterLoading() {
+    this.setState({ twitterLoading: true });
+  }
   // TODO: PROD - fix url
   render() {
     const { logout, userId } = this.props;
+    const { mobileMenu, twitterLoading } = this.state;
     return (
       <nav className="nav has-shadow">
 
@@ -31,7 +37,7 @@ class Nav extends Component {
             <span />
           </span>
 
-          <div className={`nav-right nav-menu ${this.state.mobileMenu && 'is-active'}`}>
+          <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
             <Link to="/about" activeClassName="is-active" className="nav-item">
               About
             </Link>
@@ -48,7 +54,10 @@ class Nav extends Component {
               </span>
             :
               <span className="nav-item">
-                <a href="http://127.0.0.1:3001/auth/twitter" className="button is-info is-outlined" >
+                <a
+                  href="http://127.0.0.1:3001/auth/twitter" onClick={this.twitterLoading}
+                  className={`button is-info ${twitterLoading ? 'is-loading' : 'is-outlined'}`}
+                >
                   <span className="icon">
                     <i className="fa fa-twitter" />
                   </span>
