@@ -39,7 +39,7 @@ class ImageCard extends Component {
     }
   }
   render() {
-    const { image, userId, openModal } = this.props;
+    const { image, userId, openImageModal } = this.props;
     const { error, userLiked } = this.state;
     return (
       <div className="card">
@@ -47,7 +47,7 @@ class ImageCard extends Component {
           <figure className="image pointer">
             <img
               src={error ? '/camera.png' : image.url} alt={image.description}
-              onClick={() => openModal(image.url, image.description, image._id, userId === image.user.userId)}
+              onClick={() => openImageModal(image.url, image.description, image._id, userId === image.user.userId)}
               onError={this.handleError}
             />
           </figure>
@@ -85,7 +85,7 @@ class ImageCard extends Component {
 ImageCard.propTypes = {
   image: PropTypes.object.isRequired,
   userId: PropTypes.string,
-  openModal: PropTypes.func
+  openImageModal: PropTypes.func
 };
 
 export default ImageCard;

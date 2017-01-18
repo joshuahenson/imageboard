@@ -27,7 +27,7 @@ class Board extends Component {
     };
     this.closeImageModal = this.closeImageModal.bind(this);
     this.closeNotification = this.closeNotification.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.openImageModal = this.openImageModal.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
@@ -55,7 +55,7 @@ class Board extends Component {
         console.error(err);
       }); // TODO: ISSUE MESSAGE
   }
-  openModal(url, description, id, userImage) {
+  openImageModal(url, description, id, userImage) {
     this.setState({ imageModal: { active: true, url, description, id, userImage } });
   }
   closeImageModal() {
@@ -102,7 +102,7 @@ class Board extends Component {
         >
           {images.map(image => (
             <ImageCard
-              key={image._id} image={image} userId={userId} openModal={this.openModal}
+              key={image._id} image={image} userId={userId} openImageModal={this.openImageModal}
             />
           ))}
         </Masonry>
