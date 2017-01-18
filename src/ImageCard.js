@@ -1,19 +1,46 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 class ImageCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { error: false };
+    this.state = {
+      error: false,
+      userLiked: false,
+      likes: props.image.likes.length
+    };
     this.handleError = this.handleError.bind(this);
+    this.handleLike = this.handleLike.bind(this);
+  }
+  componentDidUpdate(prevProps) {
+    // cloned props are not passed on mounting requiring me to check if userId has been updated
+    // must be careful when setting state here to not cause infinite render
+    if (prevProps.userId !== this.props.userId &&
+      this.props.image.likes.indexOf(this.props.userId) > -1) {
+      this.setState({ userLiked: true }); // eslint-disable-line react/no-did-update-set-state
+    }
   }
   handleError() {
     this.setState({ error: true });
   }
+  handleLike() {
+    // TODO: disable button while talking to server?
+    const { userLiked, likes } = this.state;
+    if (this.props.userId) {
+        // optimistic update of state
+      this.setState({ userLiked: !userLiked, likes: userLiked ? likes - 1 : likes + 1 });
+      // update server
+      axios.post('/api/image', { imageId: this.props.image._id, like: !userLiked })
+        .then()
+        .catch(err => console.error(err)); // TODO: Revert State / issue message
+    } else { // user not logged in
+      console.log('not logged in'); // TODO: ISSUE MESSAGE
+    }
+  }
   render() {
-    const { image, userId, handleLike, openModal } = this.props;
-    const { error } = this.state;
-    const userLiked = image.likes.indexOf(userId) > -1;
+    const { image, userId, openModal } = this.props;
+    const { error, userLiked } = this.state;
     return (
       <div className="card">
         <div className="card-image">
@@ -39,13 +66,13 @@ class ImageCard extends Component {
             </div>
             <div className="media-content">
               <button
-                disabled={userLiked} onClick={() => handleLike(userId, image._id)}
-                className={`button like is-primary is-pulled-right ${!userLiked && 'is-outlined'}`}
+                onClick={this.handleLike}
+                className={`button is-outlined is-pulled-right ${userLiked && 'is-primary'}`}
               >
                 <span className="icon is-small">
                   <i className="fa fa-star-o" />
                 </span>
-                <span>{image.likes.length}</span>
+                <span>{this.state.likes}</span>
               </button>
             </div>
           </div>
@@ -58,7 +85,6 @@ class ImageCard extends Component {
 ImageCard.propTypes = {
   image: PropTypes.object.isRequired,
   userId: PropTypes.string,
-  handleLike: PropTypes.func,
   openModal: PropTypes.func
 };
 

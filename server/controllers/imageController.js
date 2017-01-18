@@ -30,7 +30,7 @@ function getImages(req, res) {
 }
 
 function likeImage(req, res) {
-  Image.update({ _id: req.body.imageId }, { $push: { likes: req.user.userId } }, (err) => {
+  Image.update({ _id: req.body.imageId }, { [req.body.like ? '$push' : '$pull']: { likes: req.user.userId } }, (err) => {
     if (err) {
       res.status(500).send(err);
     }

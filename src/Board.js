@@ -19,7 +19,6 @@ class Board extends Component {
       },
       deleting: false
     };
-    this.handleLike = this.handleLike.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -32,21 +31,6 @@ class Board extends Component {
       .catch((error) => {
         console.error(error);
       });
-  }
-  handleLike(userId, imageId) {
-    if (userId) {
-      // optimistic update of state
-      const index = this.state.images.map((image) => { return image._id; }).indexOf(imageId);
-      const newImagesState = this.state.images.slice(0);
-      newImagesState[index].likes.push(userId);
-      this.setState({ images: newImagesState });
-      // update server
-      axios.post('/api/image', { imageId })
-        .then()
-        .catch(err => console.error(err)); // TODO: Revert State / issue message
-    } else {
-      console.log('not logged in'); // TODO: ISSUE MESSAGE
-    }
   }
   handleDelete(imageId) {
     this.setState({ deleting: true });
@@ -101,8 +85,7 @@ class Board extends Component {
         >
           {images.map(image => (
             <ImageCard
-              key={image._id} image={image} userId={userId}
-              handleLike={this.handleLike} openModal={this.openModal}
+              key={image._id} image={image} userId={userId} openModal={this.openModal}
             />
           ))}
         </Masonry>
