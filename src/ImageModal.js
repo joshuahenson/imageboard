@@ -17,7 +17,7 @@ class ImageModal extends Component {
     this.setState({ error: false });
   }
   render() {
-    const { active, url, description } = this.props;
+    const { active, url, id, userImage, description, deleting, handleDelete } = this.props;
     const { error } = this.state;
     return (
       <div className={`modal ${active && 'is-active'}`}>
@@ -33,9 +33,14 @@ class ImageModal extends Component {
               {description}
             </p>
           </section>
-          <footer className="modal-card-foot">
-            <button className="button is-danger">Show delete if user</button>
-          </footer>
+          {
+            userImage &&
+              <footer className="modal-card-foot">
+                <button className={`button is-danger ${deleting && 'is-loading'}`} onClick={() => handleDelete(id)}>
+                  Show delete if user
+                </button>
+              </footer>
+          }
         </div>
       </div>
     );
@@ -45,8 +50,12 @@ class ImageModal extends Component {
 ImageModal.propTypes = {
   active: PropTypes.bool,
   url: PropTypes.string,
+  id: PropTypes.string,
+  deleting: PropTypes.bool,
+  userImage: PropTypes.bool,
   description: PropTypes.string,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  handleDelete: PropTypes.func
 };
 
 export default ImageModal;

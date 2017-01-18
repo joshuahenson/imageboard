@@ -13,12 +13,16 @@ class Board extends Component {
       modal: {
         active: false,
         url: './camera.png',
-        description: ''
-      }
+        id: '',
+        description: '',
+        userImage: false
+      },
+      deleting: false
     };
     this.handleLike = this.handleLike.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
     axios.get('/api/images')
@@ -38,27 +42,45 @@ class Board extends Component {
       this.setState({ images: newImagesState });
       // update server
       axios.post('/api/image', { imageId })
-      .then()
-      .catch(err => console.error(err)); // TODO: Revert State / issue message
+        .then()
+        .catch(err => console.error(err)); // TODO: Revert State / issue message
     } else {
       console.log('not logged in'); // TODO: ISSUE MESSAGE
     }
   }
-  openModal(url, description) {
-    this.setState({ modal: { active: true, url, description } });
+  handleDelete(imageId) {
+    this.setState({ deleting: true });
+    axios.delete(`/api/image?ID=${imageId}`)
+      .then(() => {
+        this.setState({
+          deleting: false,
+          images: this.state.images.filter(image => image._id !== imageId)
+        });
+        this.closeModal();
+      })
+      .catch((err) => {
+        this.setState({ deleting: false });
+        this.closeModal();
+        console.error(err);
+      }); // TODO: ISSUE MESSAGE
+  }
+  openModal(url, description, id, userImage) {
+    this.setState({ modal: { active: true, url, description, id, userImage } });
   }
   closeModal() {
     this.setState({
       modal: {
         active: false,
         url: './camera.png',
-        description: ''
+        id: '',
+        description: '',
+        userImage: false
       }
     });
   }
   render() {
     const { userId, params } = this.props;
-    const { modal } = this.state;
+    const { modal, deleting } = this.state;
     let images = this.state.images;
     if (params.userId) {
       images = this.state.images.filter(image => image.user.userId === params.userId);
@@ -66,8 +88,9 @@ class Board extends Component {
     return (
       <div className="container">
         <ImageModal
-          active={modal.active} url={modal.url}
-          description={modal.description} closeModal={this.closeModal}
+          active={modal.active} url={modal.url} deleting={deleting} handleDelete={this.handleDelete}
+          description={modal.description} closeModal={this.closeModal} id={modal.id}
+          userImage={modal.userImage}
         />
         <Masonry
           className="masonry"

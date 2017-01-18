@@ -20,7 +20,8 @@ class ImageCard extends Component {
           <figure className="image pointer">
             <img
               src={error ? '/camera.png' : image.url} alt={image.description}
-              onClick={() => openModal(image.url, image.description)} onError={this.handleError}
+              onClick={() => openModal(image.url, image.description, image._id, userId === image.user.userId)}
+              onError={this.handleError}
             />
           </figure>
         </div>

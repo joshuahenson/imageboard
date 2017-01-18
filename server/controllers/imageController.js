@@ -38,4 +38,16 @@ function likeImage(req, res) {
   });
 }
 
-module.exports = { addImage, getImages, likeImage };
+function deleteImage(req, res) {
+  if (!req.query.ID) {
+    res.status(400).end();
+  }
+  Image.findOneAndRemove({ _id: req.query.ID, user: req.user._id }, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.status(200).end();
+  });
+}
+
+module.exports = { addImage, getImages, likeImage, deleteImage };
