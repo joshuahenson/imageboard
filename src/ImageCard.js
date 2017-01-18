@@ -7,18 +7,21 @@ class ImageCard extends Component {
     super(props);
     this.state = {
       error: false,
-      userLiked: false,
-      likes: props.image.likes.length
+      userLiked: (this.props.image.likes.indexOf(this.props.userId) > -1),
+      likes: this.props.image.likes.length
     };
     this.handleError = this.handleError.bind(this);
     this.handleLike = this.handleLike.bind(this);
   }
   componentDidUpdate(prevProps) {
-    // cloned props are not passed on mounting requiring me to check if userId has been updated
+    // cloned props are delayed requiring me to check if userId has been updated
     // must be careful when setting state here to not cause infinite render
-    if (prevProps.userId !== this.props.userId &&
-      this.props.image.likes.indexOf(this.props.userId) > -1) {
-      this.setState({ userLiked: true }); // eslint-disable-line react/no-did-update-set-state
+    if (prevProps.userId !== this.props.userId) {
+      if (this.props.image.likes.indexOf(this.props.userId) > -1) {
+        this.setState({ userLiked: true }); // eslint-disable-line react/no-did-update-set-state
+      } else if (this.props.image.likes.indexOf(prevProps.userId) > -1) {
+        this.setState({ userLiked: false }); // eslint-disable-line react/no-did-update-set-state
+      }
     }
   }
   handleError() {
