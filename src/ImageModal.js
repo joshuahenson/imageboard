@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 
-// TODO: fix sizing
-// TODO: delete button
 class ImageModal extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +25,7 @@ class ImageModal extends Component {
             <p className="modal-card-title" />
             <button className="delete" onClick={this.close} />
           </header>
-          <section className="modal-card-body">
+          <section className="modal-card-body has-text-centered">
             <img src={error ? '/camera.png' : url} alt={description} onError={this.handleError} />
             <p className="modal-card-body">
               {description}
