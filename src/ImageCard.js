@@ -36,9 +36,12 @@ class ImageCard extends Component {
       // update server
       axios.post('/api/image', { imageId: this.props.image._id, like: !userLiked })
         .then()
-        .catch(err => console.error(err)); // TODO: Revert State / issue message
+        .catch(() => {
+          this.props.showNotification('SERVER ERROR: Please try again', 'is-danger');
+          this.setState({ userLiked, likes }); // set state back to initial state
+        });
     } else { // user not logged in
-      console.log('not logged in'); // TODO: ISSUE MESSAGE
+      this.props.showNotification('Please log in first', 'is-info');
     }
   }
   render() {
@@ -88,7 +91,8 @@ class ImageCard extends Component {
 ImageCard.propTypes = {
   image: PropTypes.object.isRequired,
   userId: PropTypes.string,
-  openImageModal: PropTypes.func
+  openImageModal: PropTypes.func,
+  showNotification: PropTypes.func
 };
 
 export default ImageCard;

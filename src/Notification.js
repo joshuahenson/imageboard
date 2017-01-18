@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
-const Notification = ({ notificationState, closeNotification }) => {
+const Notification = ({ notificationState, hideNotification }) => {
   return (
     <div className={`modal ${notificationState.active && 'is-active'}`}>
-      <div className="modal-background" onClick={() => closeNotification()} />
+      <div className="modal-background" onClick={() => hideNotification()} />
       <div className="modal-content">
         <div className={`notification ${notificationState.type}`}>
-          <button className="delete" onClick={() => closeNotification()} />
+          <button className="delete" onClick={() => hideNotification()} />
           {notificationState.message}
         </div>
       </div>
@@ -16,7 +16,7 @@ const Notification = ({ notificationState, closeNotification }) => {
 
 Notification.propTypes = {
   notificationState: PropTypes.object,
-  closeNotification: PropTypes.func
+  hideNotification: PropTypes.func
 };
 
 export default Notification;

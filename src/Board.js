@@ -3,7 +3,6 @@ import Masonry from 'react-masonry-component';
 import axios from 'axios';
 import ImageCard from './ImageCard';
 import ImageModal from './ImageModal';
-import Notification from './Notification';
 
 class Board extends Component {
   constructor(props) {
@@ -18,16 +17,10 @@ class Board extends Component {
         id: '',
         description: '',
         userImage: false
-      },
-      notification: {
-        active: false,
-        message: '',
-        type: ''
       }
     };
-    this.closeImageModal = this.closeImageModal.bind(this);
-    this.closeNotification = this.closeNotification.bind(this);
     this.openImageModal = this.openImageModal.bind(this);
+    this.closeImageModal = this.closeImageModal.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
@@ -49,11 +42,11 @@ class Board extends Component {
         });
         this.closeImageModal();
       })
-      .catch((err) => {
+      .catch(() => {
         this.setState({ deleting: false });
         this.closeImageModal();
-        console.error(err);
-      }); // TODO: ISSUE MESSAGE
+        this.props.showNotification('SERVER ERROR: Please try again', 'is-danger');
+      });
   }
   openImageModal(url, description, id, userImage) {
     this.setState({ imageModal: { active: true, url, description, id, userImage } });
@@ -69,18 +62,9 @@ class Board extends Component {
       }
     });
   }
-  closeNotification() {
-    this.setState({
-      notification: {
-        active: false,
-        message: '',
-        type: ''
-      }
-    });
-  }
   render() {
-    const { userId, params } = this.props;
-    const { imageModal, deleting, notification } = this.state;
+    const { userId, params, showNotification } = this.props;
+    const { imageModal, deleting } = this.state;
     let images = this.state.images;
     if (params.userId) {
       images = this.state.images.filter(image => image.user.userId === params.userId);
@@ -92,7 +76,6 @@ class Board extends Component {
           description={imageModal.description} closeImageModal={this.closeImageModal} id={imageModal.id}
           userImage={imageModal.userImage}
         />
-        <Notification notificationState={notification} closeNotification={this.closeNotification} />
         <Masonry
           className="masonry"
           options={{
@@ -102,7 +85,8 @@ class Board extends Component {
         >
           {images.map(image => (
             <ImageCard
-              key={image._id} image={image} userId={userId} openImageModal={this.openImageModal}
+              key={image._id} image={image} userId={userId}
+              openImageModal={this.openImageModal} showNotification={showNotification}
             />
           ))}
         </Masonry>
@@ -114,6 +98,7 @@ class Board extends Component {
 Board.propTypes = {
   userId: PropTypes.string,
   params: PropTypes.object,
+  showNotification: PropTypes.func
 };
 
 export default Board;

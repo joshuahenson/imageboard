@@ -35,7 +35,7 @@ class ImageModal extends Component {
             userImage &&
               <footer className="modal-card-foot">
                 <button className={`button is-danger ${deleting && 'is-loading'}`} onClick={() => handleDelete(id)}>
-                  Show delete if user
+                  Delete
                 </button>
               </footer>
           }
