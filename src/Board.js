@@ -16,7 +16,7 @@ class Board extends Component {
         description: ''
       }
     };
-    this.likeHandler = this.likeHandler.bind(this);
+    this.handleLike = this.handleLike.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
   }
@@ -29,7 +29,7 @@ class Board extends Component {
         console.error(error);
       });
   }
-  likeHandler(userId, imageId) {
+  handleLike(userId, imageId) {
     if (userId) {
       // optimistic update of state
       const index = this.state.images.map((image) => { return image._id; }).indexOf(imageId);
@@ -79,7 +79,7 @@ class Board extends Component {
           {images.map(image => (
             <ImageCard
               key={image._id} image={image} userId={userId}
-              likeHandler={this.likeHandler} openModal={this.openModal}
+              handleLike={this.handleLike} openModal={this.openModal}
             />
           ))}
         </Masonry>
