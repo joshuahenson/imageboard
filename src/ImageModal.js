@@ -11,7 +11,7 @@ class ImageModal extends Component {
     this.setState({ error: true });
   }
   close() {
-    this.props.closeModal();
+    this.props.closeImageModal();
     this.setState({ error: false });
   }
   render() {
@@ -52,7 +52,7 @@ ImageModal.propTypes = {
   deleting: PropTypes.bool,
   userImage: PropTypes.bool,
   description: PropTypes.string,
-  closeModal: PropTypes.func,
+  closeImageModal: PropTypes.func,
   handleDelete: PropTypes.func
 };
 
