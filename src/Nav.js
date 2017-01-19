@@ -38,22 +38,28 @@ class Nav extends Component {
             <span />
           </span>
 
-          <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
-            <Link to="/about" activeClassName="is-active" className="nav-item is-tab">
-              About
-            </Link>
-            {userId &&
+          {userId ?
+            <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab">
+                About
+              </Link>
               <Link to="/add_image" activeClassName="is-active" className="nav-item is-tab">
                     Add Image
               </Link>
-            }
-            {userId ?
+              <Link to={`/images/${this.props.userId}`} activeClassName="is-active" className="nav-item is-tab">
+                    My Images
+              </Link>
               <span className="nav-item">
                 <button type="button" className="button" onClick={logout} >
                   <span>Logout</span>
                 </button>
               </span>
-            :
+            </div>
+          :
+            <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab">
+                About
+              </Link>
               <span className="nav-item">
                 <a
                   href="http://127.0.0.1:3001/auth/twitter" onClick={this.twitterLoading}
@@ -65,9 +71,8 @@ class Nav extends Component {
                   <span>Login</span>
                 </a>
               </span>
+            </div>
             }
-          </div>
-
         </div>
       </nav>
     );
