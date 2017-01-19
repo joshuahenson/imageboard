@@ -37,9 +37,9 @@ class App extends Component {
           loggingOut: false
         });
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({ loggingOut: false });
-        console.error(error);
+        this.showNotification('Error while logging out', 'is-danger');
       });
   }
   showNotification(message, type) {
