@@ -1,4 +1,4 @@
-// compileExpanded: ../index.css
+// compileCompressed: ../index.css
 
 .masonry {
   margin-top: 10px;
@@ -17,6 +17,19 @@
 
 $blue: #1da1f2;
 
-@import "bulma" // Import everything during dev
-// @import "utilities/_all",
-//   "layout/hero"
+@import "bulma/utilities/_all",
+        "bulma/base/_all",
+        "bulma/grid/columns",
+        "bulma/elements/button",
+        "bulma/elements/form",
+        "bulma/elements/icon",
+        "bulma/elements/image",
+        "bulma/elements/other",
+        "bulma/elements/notification",
+        "bulma/components/card",
+        "bulma/components/media",
+        "bulma/components/message",
+        "bulma/components/modal",
+        "bulma/components/nav",
+        "bulma/layout/footer",
+        "bulma/layout/section"
