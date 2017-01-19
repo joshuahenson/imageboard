@@ -3,7 +3,6 @@ const Image = require('../models/image');
 
 function addImage(req, res) {
   if (!req.body.url || !req.body.description) {
-    console.log('empty');
     res.status(400).end();
   } else {
     const newImage = new Image(req.body);

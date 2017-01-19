@@ -80,8 +80,6 @@ class AddImage extends Component {
           });
         }, 5000);
       });
-    } else {
-      console.log('errors');
     }
   }
   render() {
