@@ -26,10 +26,8 @@ class Nav extends Component {
   twitterLoading() {
     this.setState({ twitterLoading: true });
   }
-  // TODO: PROD - fix url
-  // Duplicate checks to userId to prevent wrapping adjacent tags in jsx which screws up css
   render() {
-    const { userId } = this.props;
+    const { userId, loggingOut } = this.props;
     const { mobileMenu, twitterLoading } = this.state;
     return (
       <nav className="nav has-shadow">
@@ -59,7 +57,7 @@ class Nav extends Component {
                     My Images
               </Link>
               <span className="nav-item">
-                <button type="button" className="button" onClick={this.logout} >
+                <button type="button" className={`button ${loggingOut && 'is-loading'}`} onClick={this.logout} >
                   <span>Logout</span>
                 </button>
               </span>

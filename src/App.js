@@ -8,6 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: { userId: '' },
+      loggingOut: false,
       notification: {
         active: false,
         message: '',
@@ -27,13 +28,17 @@ class App extends Component {
         console.error(error);
       });
   }
-  // TODO: show loading status on button
   logout() {
+    this.setState({ loggingOut: true });
     axios.get('/api/logout')
       .then(() => {
-        this.setState({ user: { userId: '' } });
+        this.setState({
+          user: { userId: '' },
+          loggingOut: false
+        });
       })
       .catch((error) => {
+        this.setState({ loggingOut: false });
         console.error(error);
       });
   }
@@ -58,7 +63,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Nav logout={this.logout} userId={this.state.user.userId} />
+        <Nav logout={this.logout} userId={this.state.user.userId} loggingOut={this.state.loggingOut} />
         <Notification notificationState={this.state.notification} hideNotification={this.hideNotification} />
         { React.Children.map(this.props.children, (child) => {
           return React.cloneElement(child, {
