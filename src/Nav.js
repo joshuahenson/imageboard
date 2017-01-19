@@ -69,7 +69,7 @@ class Nav extends Component {
               </Link>
               <span className="nav-item">
                 <a
-                  href="http://127.0.0.1:3001/auth/twitter" onClick={this.twitterLoading}
+                  href="/auth/twitter" onClick={this.twitterLoading}
                   className={`button is-info ${twitterLoading ? 'is-loading' : 'is-outlined'}`}
                 >
                   <span className="icon">
