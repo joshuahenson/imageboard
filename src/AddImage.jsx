@@ -34,7 +34,7 @@ class AddImage extends Component {
       }
       return false;
     }
-    if (!this.state.imageUrl.match(/^http(s)?:\/\/([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)) {
+    if (!this.state.imageUrl.match(/^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/i)) {
       this.setState({ imageUrlError: 'VALID URL REQUIRED' });
       return false;
     }
