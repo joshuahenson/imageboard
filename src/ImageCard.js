@@ -28,7 +28,6 @@ class ImageCard extends Component {
     this.setState({ error: true });
   }
   handleLike() {
-    // TODO: disable button while talking to server?
     const { userLiked, likes } = this.state;
     if (this.props.userId) {
         // optimistic update of state

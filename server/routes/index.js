@@ -33,9 +33,10 @@ module.exports = (app) => {
 
   app.get('/auth/twitter/callback',
     passportTwitter.authenticate('twitter', {
-      // successRedirect: '/',
-      successRedirect: 'http://127.0.0.1:3000', // TODO: PROD - fix url
-      failureRedirect: '/login' // TODO: FIX
+      // Set this with env variable
+      // successRedirect: '/', // Production
+      successRedirect: 'http://127.0.0.1:3000', // Development
+      failureRedirect: '/'
     })
   );
 };
