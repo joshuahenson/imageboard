@@ -33,11 +33,6 @@ class Nav extends Component {
       <nav className="nav has-shadow">
 
         <div className="container">
-          <div className="nav-left">
-            <Link to="/" className="nav-item is-tab" onClick={this.closeMenu}>
-              Imageboard
-            </Link>
-          </div>
 
           <span aria-hidden="true" className="nav-toggle" onClick={this.toggleMenu}>
             <span />
@@ -46,15 +41,41 @@ class Nav extends Component {
           </span>
 
           {userId ?
-            <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
-              <Link to="/about" activeClassName="is-active" className="nav-item is-tab" onClick={this.closeMenu}>
+            <div className="nav-left">
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab is-hidden-mobile">
                 About
               </Link>
-              <Link to="/add_image" activeClassName="is-active" className="nav-item is-tab" onClick={this.closeMenu}>
-                    Add Image
+              <Link to="/add_image" activeClassName="is-active" className="nav-item is-tab is-hidden-mobile">
+                Add Image
               </Link>
-              <Link to={`/images/${this.props.userId}`} activeClassName="is-active" className="nav-item is-tab" onClick={this.closeMenu}>
-                    My Images
+              <Link to={`/images/${this.props.userId}`} activeClassName="is-active" className="nav-item is-tab is-hidden-mobile">
+                My Images
+              </Link>
+            </div>
+          :
+            <div className="nav-left">
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab is-hidden-mobile">
+                About
+              </Link>
+            </div>
+          }
+
+          <div className="nav-center">
+            <Link to="/" className="nav-item is-tab" onClick={this.closeMenu}>
+              <b>Imageboard</b>
+            </Link>
+          </div>
+
+          {userId ?
+            <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab is-hidden-tablet" onClick={this.closeMenu}>
+                About
+              </Link>
+              <Link to="/add_image" activeClassName="is-active" className="nav-item is-tab is-hidden-tablet" onClick={this.closeMenu}>
+                Add Image
+              </Link>
+              <Link to={`/images/${this.props.userId}`} activeClassName="is-active" className="nav-item is-tab is-hidden-tablet" onClick={this.closeMenu}>
+                My Images
               </Link>
               <span className="nav-item">
                 <button type="button" className={`button ${loggingOut && 'is-loading'}`} onClick={this.logout} >
@@ -64,7 +85,7 @@ class Nav extends Component {
             </div>
           :
             <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
-              <Link to="/about" activeClassName="is-active" className="nav-item is-tab" onClick={this.closeMenu}>
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab is-hidden-tablet" onClick={this.closeMenu}>
                 About
               </Link>
               <span className="nav-item">
@@ -79,7 +100,7 @@ class Nav extends Component {
                 </a>
               </span>
             </div>
-            }
+          }
         </div>
       </nav>
     );
@@ -87,6 +108,7 @@ class Nav extends Component {
 }
 
 Nav.propTypes = {
+  loggingOut: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired
 };
