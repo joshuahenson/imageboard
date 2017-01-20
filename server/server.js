@@ -6,6 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const routes = require('./routes/index.js');
+const dummyData = require('./dummyData.js');
 
 const app = express();
 
@@ -25,6 +26,7 @@ mongoose.connect(uristring, (err) => {
   } else {
     console.log(`Succeeded connecting to: ${uristring}`);
   }
+  dummyData();
 });
 
 const port = process.env.PORT || 3001;

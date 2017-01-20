@@ -58,9 +58,6 @@ class ImageCard extends Component {
           </figure>
         </div>
         <div className="card-content">
-          <div className="content">
-            {image.description}
-          </div>
           <div className="media">
             <div className="media-left">
               <Link to={`/images/${image.user.userId}`}>
