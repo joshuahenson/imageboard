@@ -68,6 +68,9 @@ class Nav extends Component {
 
           {userId ?
             <div className={`nav-right nav-menu ${mobileMenu && 'is-active'}`}>
+              <Link to="/about" activeClassName="is-active" className="nav-item is-tab is-hidden-tablet" onClick={this.closeMenu}>
+                About
+              </Link>
               <Link to="/add_image" activeClassName="is-active" className="nav-item is-tab is-hidden-tablet" onClick={this.closeMenu}>
                 Add Image
               </Link>
