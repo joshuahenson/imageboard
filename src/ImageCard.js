@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
+import placeholder from './images/camera.png';
 
 class ImageCard extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class ImageCard extends Component {
         <div className="card-image">
           <figure className="image pointer">
             <img
-              src={error ? '/camera.png' : image.url} alt={image.description}
+              src={error ? placeholder : image.url} alt={image.description}
               onClick={() => openImageModal(image.url, image.description, image._id, userId === image.user.userId)}
               onError={this.handleError}
             />

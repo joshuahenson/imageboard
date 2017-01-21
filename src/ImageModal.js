@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import placeholder from './images/camera.png';
 
 class ImageModal extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class ImageModal extends Component {
             <button className="delete" onClick={this.close} />
           </header>
           <section className="modal-card-body has-text-centered">
-            <img src={error ? '/camera.png' : url} alt={description} onError={this.handleError} />
+            <img src={error ? placeholder : url} alt={description} onError={this.handleError} />
             <p className="modal-card-body">
               {description}
             </p>

@@ -3,6 +3,7 @@ import Masonry from 'react-masonry-component';
 import axios from 'axios';
 import ImageCard from './ImageCard';
 import ImageModal from './ImageModal';
+import placeholder from './images/camera.png';
 
 class Board extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Board extends Component {
       deleting: false,
       imageModal: {
         active: false,
-        url: './camera.png',
+        url: placeholder,
         id: '',
         description: '',
         userImage: false
@@ -55,7 +56,7 @@ class Board extends Component {
     this.setState({
       imageModal: {
         active: false,
-        url: './camera.png',
+        url: placeholder,
         id: '',
         description: '',
         userImage: false
